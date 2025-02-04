@@ -23,19 +23,25 @@ To make use of your GPU or NPU you may need to install the AI Toolkit extension 
 
 ## Running the script
 
-To run the script, simply execute the following command:
+1. Clone the repository.
+2. Run `pnpm install` to install the dependencies.
 
-```sh
-sh ./bin/run.sh [--model-id <model id>] [--system-message <system message>] [--conversation-id <conversation id>] [--wrap <wrap at column>]
-```
+To run the script, simply execute the following command in a terminal:
 
-or
+In PowerShell (you may need to allow script execution, e.g. by running `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope User` in
+PowerShell with administrator privileges):
 
 ```powershell
 ./bin/run.ps1 [-modelId <model-id>] [-systemMessage <system message>] [-conversationId <conversation id>] [-wrap <wrap at column>]
 ```
 
-The default model-id is the DeepSeek R1 (NPU) model.
+In bash:
+
+```sh
+bash ./bin/run.sh [--model-id <model id>] [--system-message <system message>] [--conversation-id <conversation id>] [--wrap <wrap at column>]
+```
+
+The script is configured with the DeepSeek R1 (NPU) model-id by default.
 
 You will be prompted to send a message.
 

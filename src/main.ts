@@ -11,7 +11,7 @@ const args = parseArgs({
         'system-message': {
             type: 'string',
             short: 's',
-            default: `You are Deepseek R1 by Deepseek from Hangzhou.`,
+            default: `You are DeepSeek R1 by DeepSeek from Hangzhou.`,
         },
         'model-id': {
             type: 'string',

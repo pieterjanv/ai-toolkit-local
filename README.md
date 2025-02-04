@@ -1,6 +1,6 @@
 # Interfacing with AI Toolkit using OpenAI's SDK in TypeScript
 
-This repository contains a basic script to run AI models locally. It utilizies Microsoft's [AI Toolkit](https://learn.microsoft.com/en-us/windows/ai/toolkit/toolkit-getting-started) to run Phi models locally on CPU, GPU or NPU.
+This repository contains a basic script to run AI models locally. It utilizies Microsoft's [AI Toolkit](https://learn.microsoft.com/en-us/windows/ai/toolkit/toolkit-getting-started) to run models locally on CPU, GPU or NPU.
 
 
 ## Prerequisites

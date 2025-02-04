@@ -1,0 +1,47 @@
+# Interfacing with AI Toolkit using OpenAI's SDK in TypeScript
+
+This repository contains a basic script to run AI models locally. It utilizies Microsoft's [AI Toolkit](https://learn.microsoft.com/en-us/windows/ai/toolkit/toolkit-getting-started) to run Phi models locally on CPU, GPU or NPU.
+
+
+## Prerequisites
+
+- [pnpm](https://pnpm.io/)
+- Visual Studio Code with the AI Toolkit extension installed
+- `bash` or `powershell`
+
+To make use of your GPU or NPU you may need to install the AI Toolkit extension in VS Code from Windows, rather than WSL.
+
+
+## Loading the model
+
+1. Open the extension settings in the left sidebar in VS Code.
+2. Open the `Models` catalog.
+3. Filter on `Model type` and select `Local run w/ CPU`, `Local run w/ GPU` or `Local run w/ NPU`.
+4. Download the model
+5. Take note of the model's id by hovering over the model in the `My models` section of the extension.
+
+
+## Running the script
+
+To run the script, simply execute the following command:
+
+```sh
+sh ./bin/run.sh [--model-id <model id>] [--system-message <system message>] [--conversation-id <conversation id>] [--wrap <wrap at column>]
+```
+
+or
+
+```powershell
+./bin/run.ps1 [-modelId <model-id>] [-systemMessage <system message>] [-conversationId <conversation id>] [-wrap <wrap at column>]
+```
+
+The default model-id is the DeepSeek R1 (NPU) model.
+
+You will be prompted to send a message.
+
+
+## How it works
+
+The AI Toolkit makes the model available at a REST API endpoint. Since the API is compatible with that of
+OpenAI, OpenAI's sdk can be used to interact with the model. See `prompt()` in `src/main.ts` for
+an example of calling the API.

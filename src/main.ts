@@ -145,10 +145,9 @@ async function read(
         return;
     }
 
-    // What follows is makes sure the output fits within the specified width with line breaks
-    // at suitable points.
+    // What follows makes sure the output fits within the specified width with line breaks at suitable points.
     // We attach the incomplete line from the previous iterations to the beginning of the chunk
-    // to form the addition to be outputted at some point. Next we output all segments of the addition to are
+    // to form the addition to be outputted at some point. Next we output all segments of the addition that are
     // complete lines and pass on the remainder to the next iteration.
 
     let addition = line + chunk.toString().replace(/\r/g, '');

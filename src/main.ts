@@ -4,6 +4,18 @@ import { parseArgs } from "util";
 
 const args = parseArgs({
     options: {
+        'conversation-id': {
+            type: 'string',
+            short: 'c',
+        },
+        language: {
+            type: 'string',
+            short: 'l',
+        },
+        'model-id': {
+            type: 'string',
+            short: 'm',
+        },
         'prompt': {
             type: 'string',
             short: 'p',
@@ -11,15 +23,6 @@ const args = parseArgs({
         'system-message': {
             type: 'string',
             short: 's',
-            default: `You are DeepSeek R1 by DeepSeek from Hangzhou.`,
-        },
-        'model-id': {
-            type: 'string',
-            short: 'm',
-        },
-        'conversation-id': {
-            type: 'string',
-            short: 'c',
         },
         wrap: {
             type: 'string',
@@ -29,6 +32,10 @@ const args = parseArgs({
         }
     },
 });
+
+if (!args.values['system-message']) {
+    args.values['system-message'] = `You are DeepSeek AI, a powerful AI assistant that can help you with a variety of tasks. Make sure to always answer in ${args.values.language || 'English'}.`;
+}
 
 const client = new OpenAI({
     baseURL: `http://127.0.0.1:5272/v1`,
@@ -65,7 +72,7 @@ async function prompt() {
 
     conversation.push({
         role: 'user',
-        content: args.values.prompt,
+        content: args.values.prompt.replace(/\r?\n/g, '\n'),
     });
 
     if (!args.values['model-id']) {
@@ -121,7 +128,7 @@ async function read(
             role: 'assistant',
             content,
         })
-		writeFileSync(conversationPath, JSON.stringify(conversation, null, 2));
+		writeFileSync(conversationPath, JSON.stringify(conversation, null, 2) + '\n');
         return;
 	}
 

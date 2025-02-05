@@ -2,7 +2,8 @@ param(
     [string]$modelId='DeepSeek-R1-Distilled-NPU-Optimized',
     [string]$systemMessage,
     [string]$conversationId="conversation-$(Get-Date -Format "yyyyMMdd-HHmmss")",
-    [string]$wrap
+    [string]$wrap,
+    [string]$language='English'
 )
 
 $args = @()
@@ -20,23 +21,46 @@ if ($wrap) {
 }
 
 [Microsoft.PowerShell.PSConsoleReadLine]::ClearScreen();
+Write-Host
+$prompt = ''
+$line = ''
 while ($true) {
+    Write-Host "
+:more  - open a multi-line input box
+:clear - clear the current prompt
+:exit  - quit
+"
     Write-Host
+    Write-Host "[User]"
     Write-Host
-    Write-Host "[User] (Type 'exit' to quit)"
-    Write-Host
-    $prompt = Read-Host
-    if ($prompt -eq '') {
+    $line = Read-Host
+
+    if ($line -eq ':more') {
+        $prompt = & "$PSScriptRoot\lib\Read-MultiLineInputBoxDialog" -Message "Enter your message" -WindowTitle "User input"
+        Write-Host
+        if ($prompt -eq '') {
+            Write-Host
+            break
+        }
+        Write-Host $prompt
+    }
+    elseif ($line -eq ':clear') {
+        [Microsoft.PowerShell.PSConsoleReadLine]::ClearScreen();
+        $prompt = ''
         continue
     }
-    if ($prompt -eq 'exit') {
+    elseif ($line -eq ':exit') {
         Write-Host
         break
     }
-    Write-Host
+    else {
+        $prompt = $line
+        Write-Host
+    }
+
     Write-Host
     Write-Host "[Assistant]"
     Write-Host
-    $env:SHELL='pwsh.exe'; .\node_modules\.bin\tsx .\src\main.ts @args --model-id $modelId --prompt $prompt | Out-Host
+    $env:SHELL='pwsh.exe'; .\node_modules\.bin\tsx .\src\main.ts @args --model-id $modelId --prompt $prompt --language $language | Out-Host
     Write-Host
 }

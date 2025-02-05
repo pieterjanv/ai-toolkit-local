@@ -32,7 +32,7 @@ In PowerShell (you may need to allow script execution, e.g. by running `Set-Exec
 PowerShell with administrator privileges):
 
 ```powershell
-./bin/run.ps1 [-modelId <model-id>] [-systemMessage <system message>] [-conversationId <conversation id>] [-wrap <wrap at column>]
+./bin/run.ps1 [-modelId <model-id>] [-systemMessage <system message>] [-conversationId <conversation id>] [-wrap <wrap at column>] [-language <language>]
 ```
 
 In bash:
